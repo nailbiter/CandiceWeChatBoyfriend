@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -28,20 +30,44 @@ public class Backbone implements HttpHandler {
 		BufferedReader in = new BufferedReader(new InputStreamReader(t.getRequestBody()));                                                 
         String inputLine;
         String from = null, to = null, msg = null;
-        while ((inputLine = in.readLine()) != null) {                                                                                      
-            System.out.format("%s\n",inputLine);
-            if(inputLine.contains("ToUserName")) {
-            	
-            }
-        }                                                                                                                                  
-                                                                                                                                           
+        try {
+	        while ((inputLine = in.readLine()) != null) {                                                                                      
+	            System.out.format("%s\n",inputLine);
+	            if(inputLine.contains("ToUserName")) {
+	            	Pattern r = Pattern.compile("CDATA\\[([^\\]]*)\\]");
+	            	Matcher m = r.matcher(inputLine);
+	            	if(m.find())
+	            		to = m.group(1);
+	            }
+	            if(inputLine.contains("FromUserName")) {
+	            	Pattern r = Pattern.compile("CDATA\\[([^\\]]*)\\]");
+	            	Matcher m = r.matcher(inputLine);
+	            	if(m.find())
+	            		from = m.group(1);
+	            }
+	            if(inputLine.contains("Content")) {
+	            	Pattern r = Pattern.compile("CDATA\\[([^\\]]*)\\]");
+	            	Matcher m = r.matcher(inputLine);
+	            	if(m.find())
+	            		msg = m.group(1);
+	            }
+	        }
+        }
+        catch(Exception e) {
+        	e.printStackTrace();
+        }
+        
+        System.out.format("to=%s\n",to);
+        System.out.format("from=%s\n",from);
+        System.out.format("msg=%s\n",msg);
+        
         try{                                                                                                                               
             StringBuilder sb = new StringBuilder();                                                                                        
-            sb.append("<xml><ToUserName><![CDATA[ou5KB0QpWLoyae77pXFPZqEQhu1Q]]></ToUserName>");                                           
-            sb.append("<FromUserName><![CDATA[gh_135a0801a87a]]></FromUserName>");                                                         
+            sb.append(String.format("<xml><ToUserName><![CDATA[%s]]></ToUserName>",from));                                           
+            sb.append(String.format("<FromUserName><![CDATA[%s]]></FromUserName>",to));                                                         
             sb.append(String.format("<CreateTime>%d</CreateTime>",100500));                                                                
             sb.append("<MsgType><![CDATA[text]]></MsgType>");                                                                              
-            sb.append(String.format("<Content><![CDATA[%s]]></Content>",r_.reply("")));                                                          
+            sb.append(String.format("<Content><![CDATA[%s]]></Content>",r_.reply(msg)));                                                          
             sb.append("</xml>");                                                                                                           
                                                                                                                                            
             String response = sb.toString();                                                                                               
