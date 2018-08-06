@@ -1,13 +1,15 @@
 
 public class Main implements Replier {
-
+	static Backbone bb = null;
 	public static void main(String[] args) {
-		new Backbone(new Main());
+		bb = new Backbone(new Main());
 	}
 
 	@Override
-	public String reply(String msg) {
-		return "唐琳是白痴";
+	public String reply(String msg, String from) {
+		bb.sendMessage("privet!",from);
+		bb.sendMessage("shalom!",from);
+		return "唐琳是白痴!!";
 	}
 
 }

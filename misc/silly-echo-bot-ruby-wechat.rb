@@ -23,7 +23,7 @@ require 'time'
 require 'digest/sha1'
 
 # Set the shared token (must be set in the WeChat sandobox console, too)
-WECHAT_TOKEN = "8eb33930a2c6d5d5c20ed4a18c6130c3"
+WECHAT_TOKEN = "EQ200MXv3MckvBbv"
 
 # A class providing methods to handle GET and POST requests
 class WeChatApiResource
