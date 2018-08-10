@@ -1,3 +1,3 @@
 public interface Replier {
-	public String reply(String msg, String from);
+	public void reply(String msg, String from);
 }

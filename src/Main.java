@@ -6,10 +6,11 @@ public class Main implements Replier {
 	}
 
 	@Override
-	public String reply(String msg, String from) {
-		bb.sendMessage("privet!",from);
-		bb.sendMessage("shalom!",from);
-		return "唐琳是白痴!!";
+	public void reply(String msg, String from) {
+		bb.sendMessage("你输入了: "+msg,from);
+		bb.sendMessage("记得，"+getName()+"是白痴!",from);
 	}
-
+	private String getName() {
+		return "唐琳";
+	}
 }

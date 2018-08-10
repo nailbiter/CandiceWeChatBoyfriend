@@ -99,7 +99,8 @@ public class Backbone implements HttpHandler {
         myId = to;
         
         try{
-        	this.sendTextMessage(r_.reply(msg,from), from,t);
+        	this.sendTextMessage("", from,t);
+        	r_.reply(msg,from);
         }                                                                                                                                  
         catch(Exception e){                                                                                                                
            e.printStackTrace(System.out);                                                                                                  
