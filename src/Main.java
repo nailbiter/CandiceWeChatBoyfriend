@@ -11,7 +11,9 @@ public class Main extends AbstractMain {
 			箱子= Integer.parseInt(msg);
 			拿到了一个=true;
 		}
-		
-		//int num2 = Integer.parseInt(msg);
+	}
+	@Override
+	public void scheduledCallback(int year,int month, int day, int hour,int min,int weekday) {
+		System.out.format("now is %d-%d-%d %d-%d %d",year,month,day,hour,min,weekday);
 	}
 }

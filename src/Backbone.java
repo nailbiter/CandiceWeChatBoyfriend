@@ -17,14 +17,21 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import it.sauronsoftware.cron4j.Scheduler;
+
 public class Backbone implements HttpHandler {
 	private String accessToken = "null"; 
 	private Replier r_ = null;
 	private final static int PORT = 8000;
 	private String myId = null;
-	public Backbone(Replier r) {
+	private Scheduler s;
+	public Backbone(AbstractMain r) {
 		r_ = r;
 		try {
+			Scheduler s = new Scheduler();
+			s.schedule("* * * * *",r);
+			s.start();
+			
 			getAccessKey();
 			HttpServer server = HttpServer.create(new InetSocketAddress(PORT),0);
 			server.createContext("/wechat",this);
@@ -32,7 +39,7 @@ public class Backbone implements HttpHandler {
 			server.start();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 	private void getAccessKey() throws IOException {
 		URL url = new URL(String.format("https://api.wechat.com/cgi-bin/token?grant_type=%s&appid=%s&secret=%s", 
