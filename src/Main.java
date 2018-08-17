@@ -5,7 +5,7 @@ public class Main extends AbstractMain {
 	public void reply(String msg, String from) {
 		if(拿到了一个) {
 			int num1 = Integer.parseInt(msg);
-			bb.sendMessage(Integer.toString(箱子 - num1), from);
+			sendMessage(Integer.toString(箱子 - num1), from);
 			拿到了一个=false;
 		}else {
 			箱子= Integer.parseInt(msg);

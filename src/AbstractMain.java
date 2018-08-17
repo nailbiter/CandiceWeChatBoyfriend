@@ -1,7 +1,7 @@
 import java.util.Date;
 
 public abstract class AbstractMain implements Replier, Runnable {
-	static Backbone bb = null;
+	static private Backbone bb = null;
 	public static void main(String[] args) {
 		bb = new Backbone(new Main());
 	}
@@ -10,5 +10,8 @@ public abstract class AbstractMain implements Replier, Runnable {
 	public void run() {
 		Date d = new Date();
 		scheduledCallback(d.getYear()+1900,d.getMonth(),d.getDate(),d.getHours(),d.getMinutes(),d.getDay());
+	}
+	void sendMessage(String s,String to) {
+		bb.sendMessage(s, to);
 	}
 }
