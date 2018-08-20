@@ -6,7 +6,7 @@ public abstract class AbstractMain implements Replier, Runnable {
 		bb = new Backbone(new Main());
 	}
 	abstract public void reply(String msg, String from) throws Exception;
-	abstract public void scheduledCallback(int year,int month, int day, int hour,int min,int weekday) throws Exception;
+//	abstract public void scheduledCallback(int year,int month, int day, int hour,int min,int weekday) throws Exception;
 	public void run() {
 		Date d = new Date();
         try{
@@ -19,4 +19,5 @@ public abstract class AbstractMain implements Replier, Runnable {
 	void sendMessage(String s,String to) {
 		bb.sendMessage(s, to);
 	}
+	abstract public void scheduledCallback(Integer year, Integer month, Integer day, Integer hour, Integer min, Integer weekday) throws Exception;
 }
