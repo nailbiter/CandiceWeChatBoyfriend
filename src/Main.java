@@ -1,16 +1,11 @@
 public class Main extends AbstractMain {
-	int 箱子 = 0;
-	boolean 拿到了一个 = false;
 	@Override
 	public void reply(String msg, String from) {
-		if(拿到了一个) {
-			int num1 = Integer.parseInt(msg);
-			sendMessage(Integer.toString(箱子 - num1), from);
-			拿到了一个=false;
-		}else {
-			箱子= Integer.parseInt(msg);
-			拿到了一个=true;
-		}
+		//第一步
+		String[] parts = msg.split(" ",5);
+		//第二步
+		// 月 日 点 分
+		int 月 = Integer.parseInt(parts[0]);
 	}
 	@Override
 	public void scheduledCallback(int year,int month, int day, int hour,int min,int weekday) {
