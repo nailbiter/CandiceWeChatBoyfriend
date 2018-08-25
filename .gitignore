@@ -2,3 +2,6 @@
 .settings
 .project
 /bin/
+*.swp
+*.swo
+misc/__pycache__
